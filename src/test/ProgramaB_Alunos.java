@@ -12,12 +12,14 @@ import predicates.NamePredicate;
 
 public class ProgramaB_Alunos {
 
-	private static final String name = "";
-	private static final String email = "";
-	private static final int idade = 0;
-	private static final String cidade = "";
+	private static final String name = "Sherrie Rojas";
+	private static final String email = "sherrierojas@menbrain.com";
+	private static final int idade = 36 ;
+	private static final String cidade = "Cloverdale";
 	
 	public static void main(String[] args) {
+		Aluno procura = new Aluno(name, email, idade, cidade);
+		
 		FileReader arquivo = null;
 		try {
 			arquivo = new FileReader("data/alunos.csv");
@@ -27,13 +29,13 @@ public class ProgramaB_Alunos {
 		}
 		ListaEncadeada<Aluno> lista = ListaEncadeada.loadFromFile(arquivo);
 		
-		System.out.println(lista.search(new SearchByName(name)));
+		System.out.println(lista.search(procura,new SearchByName()));
 		lista.removeIf(new NamePredicate(name));
-		if (lista.search(new SearchByName(name)) != null)
+		if (lista.search(procura, new SearchByName()) != null)
 			System.out.println(name + " nao deveria estar na lista.");
 
-		System.out.println(lista.search(new SearchByEmail(email)));
-		System.out.println(lista.search(new SearchByAgeAndCity(idade,cidade)));
+		System.out.println(lista.search(procura, new SearchByEmail()));
+		System.out.println(lista.search(procura,new SearchByAgeAndCity()));
 	}
 
 }
